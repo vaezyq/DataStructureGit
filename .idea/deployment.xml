@@ -1,18 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="PublishConfigData" remoteFilesAllowedToDisappearOnAutoupload="false">
+  <component name="PublishConfigData" serverName="121.4.90.236" remoteFilesAllowedToDisappearOnAutoupload="false">
     <serverData>
-      <paths name="Remote Host (96ffa580-c57d-4ee0-b18e-81314ddbf437)">
-        <serverdata>
-          <mappings>
-            <mapping deploy="/tmp/tmp.zX8sOCmVJQ" local="$PROJECT_DIR$" />
-          </mappings>
-          <excludedPaths>
-            <excludedPath local="true" path="$PROJECT_DIR$/cmake-build-debug" />
-          </excludedPaths>
-        </serverdata>
-      </paths>
-      <paths name="vae">
+      <paths name="121.4.90.236">
         <serverdata>
           <mappings>
             <mapping local="$PROJECT_DIR$" web="/" />
