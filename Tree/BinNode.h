@@ -99,6 +99,9 @@ public:
     template<class VST>
     void travIn_l3(BinNode<T> *x, VST &visit);
 
+    template<class VST>
+    void travIn_l4(BinNode<T> *x, VST &visit);
+
 
     template<class VST>
     void tracPost_R(BinNodePos&pos, VST &visit);

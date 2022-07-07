@@ -31,10 +31,10 @@ BinNode<T> *BinNode<T>::insertAsRc(const T &e) {
 template<typename T>
 template<class VST>
 void BinNode<T>::tracPre_R(BinNode<T> *&pos, VST &visit) {
-    if (pos == nullptr) return;
-    visit(pos->data);
-    tracPre_R(pos->lc, visit);
-    tracPre_R(pos->rc, visit);
+    if (pos == nullptr) return;     //递归基：为空时退出递推
+    visit(pos->data);        //访问节点
+    tracPre_R(pos->lc, visit);  //递归访问左子树
+    tracPre_R(pos->rc, visit);  //递归访问右子树
 }
 
 template<typename T>
@@ -45,10 +45,10 @@ void BinNode<T>::travPre_I1(BinNode<T> *&pos, VST &visit) {
     while (!S.isEmpty()) {
         auto x = S.pop();
         if (x->rc) {
-            S.push(rc);
+            S.push(rc);   //右孩子入栈
         }
         if (x->lc) {
-            S.push(lc);
+            S.push(lc);  //左孩子入栈
         }
     }
 }
@@ -59,7 +59,9 @@ template<class VST>
 void BinNode<T>::visitAlongLeftBranch(BinNode<T> *pos, VST &visit, Stack<BinNode<T> *> &S) {
     while (pos != nullptr) {  //反复的沿左侧访问
         visit(pos->data);  //访问当前节点
-        S.push(pos->rc);  //右侧孩子入栈
+        if (pos->rc != nullptr) { //右孩子存在
+            S.push(pos->rc);  //右侧孩子入栈
+        }
         pos = pos->lc; //沿着左侧下行
     }
 }
@@ -85,8 +87,7 @@ void BinNode<T>::tracIn_R(BinNode<T> *&pos, VST &visit) {
 }
 
 template<typename T>
-static void goAlongLeftBranch(BinNodePos x, Stack<BinNodePos> &S) {
-
+static void goAlongLeftBranch(BinNodePos x, Stack<BinNodePos> &S) { //从当前节点出发，沿左分支不断深入，直至没有左分支的节点
     while (x) {
         S.push(x);
         x = x->lc;
@@ -96,14 +97,14 @@ static void goAlongLeftBranch(BinNodePos x, Stack<BinNodePos> &S) {
 template<typename T>
 template<class VST>
 void BinNode<T>::travIn_l1(BinNode<T> *x, VST &visit) {
-    Stack<BinNodePos> S;
+    Stack<BinNodePos> S;  //构造辅助栈
 
     while (true) {
-        goAlongLeftBranch(x, S);
-        if (S.isEmpty()) break;
-        auto pos = S.pop();
+        goAlongLeftBranch(x, S);  //从当前节点开始逐次入栈
+        if (S.isEmpty()) break;   //栈空，遍历结束
+        auto pos = S.pop();   //弹出栈顶元素，并访问
         visit(pos->data);
-        x = x->rc;
+        x = x->rc;   //转向右子树
     }
 }
 
@@ -128,32 +129,53 @@ void BinNode<T>::travIn_l2(BinNode<T> *x, VST &visit) {
 
 template<typename T>
 BinNode<T> *BinNode<T>::succ() {
-    auto s = this;
-    if (rc) {
-        s = rc;
-        while (BinNode<T>::HasLChild(s)) s = s->lc;
-    } else {
-        while (BinNode<T>::IsRChild(s)) s = s->parent;
-        s = s->parent;
+    auto s = this;    // 用于记录后继变量来返回结果
+    if (rc) {      //若有右孩子，则直接后继必在右子树中
+        s = rc;    //首先定位到右子树
+        while (BinNode<T>::HasLChild(s)) s = s->lc; //寻找右子树最靠左的节点
+    } else {       //没有右子树，后继为其父亲节点
+        while (BinNode<T>::IsRChild(s)) s = s->parent; //逆向的沿右向分支，不断地向左上方移动
+        s = s->parent;  //最后再朝右上f放移动一步，即抵达直接后继(如果存在)
     }
     return s;
 }
 
 template<typename T>
 template<class VST>
-void BinNode<T>::travIn_l3(BinNode<T> *x, VST &visit) {
-    bool backtrack = false;
+void BinNode<T>::travIn_l3(BinNode<T> *x, VST &visit) {       //二叉树中序遍历算法(不需要辅助栈)
+    bool backtrack = false;      //判断前一步是否是从右子树回溯的
     while (true) {
-        if (!backtrack && BinNode<T>::HasLChild(x)) {
-            x = x->lc;
+        if (!backtrack && BinNode<T>::HasLChild(x)) { //若此节点有左子树，且不是刚刚回溯的
+            x = x->lc;   //深入遍历左子树
         } else {
-            visit(x->data);
-            if (BinNode<T>::HasRChild(x)) {
-                x = x->rc;
-                backtrack = false;
-            } else {
-                if ((x = x->succ()) == nullptr) break;
-                backtrack = true;
+            visit(x->data); //访问节点数据
+            if (BinNode<T>::HasRChild(x)) {   //若右子树非空
+                x = x->rc;    //深入右子树遍历
+                backtrack = false;  //设置回溯为false
+            } else {  //右子树也为空
+                if ((x = x->succ()) == nullptr) break;    //回溯到后继节点
+                backtrack = true;    //设置回溯标志
+            }
+        }
+    }
+}
+
+
+template<typename T>
+template<class VST>
+void BinNode<T>::travIn_l4(BinNode<T> *x, VST &visit) {  //二叉树中序遍历(无需栈或标志位)
+    while (true) {
+        if (HasLChild(x)) {   //若有左子树，则
+            x = x->lc; //深入遍历左子树
+        } else { //否则
+            visit(x->data); //访问当前节点
+            while (!HasRChild(x)) { //不断地在无右分支处
+                if (!(x = x->succ())) {
+                    break;  //回溯至直接后继（在没有后继的末节点处，直接退出）
+                } else {
+                    visit(x->data);  //访问新的当前节点
+                }
+                x = x->rc;  //转向非空的右子树
             }
         }
     }
@@ -215,6 +237,8 @@ void BinNode<T>::travLevel(VST &visit) {
         }
     }
 }
+
+
 
 
 
