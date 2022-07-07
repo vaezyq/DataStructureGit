@@ -29,6 +29,9 @@ public:
     BinNode(T const &e, BinNodePos p = nullptr, BinNodePos l = nullptr, BinNodePos r = nullptr, int h = 0) :
             data(e), parent(p), lc(l), rc(r), height(h) {}
 
+
+    //操作接口
+
     int size();  //统计当前节点后代总数，亦即以其为根的子树的规模
 
     BinNodePos insertAsLc(T const &e);    //作为左孩子插入
@@ -153,6 +156,7 @@ public:
     template<class VST>
     void travPost_I(BinNodePos x, VST &visit);
 };
+
 
 
 #endif //DATASTRUCTUREGIT_BINNODE_H
