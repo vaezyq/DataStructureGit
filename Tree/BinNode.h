@@ -40,8 +40,7 @@ public:
 
     BinNodePos succ();     //(中序遍历意义下)当前节点的直接后继
 
-    template<class VST>
-    void travLevel(VST &visit);
+
 
     template<class VST>
     void travPre(VST &visit) {   //子树先序遍历
@@ -75,23 +74,42 @@ public:
 
 
     template<class VST>
+    void tracPre_R(BinNodePos&pos, VST &visit);
+
+    template<class VST>
     void travPre_I1(BinNodePos&pos, VST &visit);
+
+    template<class VST>
+    static void visitAlongLeftBranch(BinNodePos pos, VST &visit, Stack<BinNodePos> &S);
 
     template<class VST>
     void travPre_I2(BinNodePos&pos, VST &visit);
 
     template<class VST>
-    void tracPre_R(BinNodePos&pos, VST &visit);
+    void tracIn_R(BinNodePos&pos, VST &visit);
+
 
     template<class VST>
-    void tracIn_R(BinNodePos&pos, VST &visit);
+    void travIn_l1(BinNode<T> *x, VST &visit);
+
+    template<class VST>
+    void travIn_l2(BinNode<T> *x, VST &visit);
+
+
+    template<class VST>
+    void travIn_l3(BinNode<T> *x, VST &visit);
+
 
     template<class VST>
     void tracPost_R(BinNodePos&pos, VST &visit);
 
-    template<class VST>
-    static void visitAlongLeftBranch(BinNodePos pos, VST &visit, Stack<BinNodePos> &S);
+    void gotoHLVFL(Stack<BinNode<T> *> &S);
 
+    template<class VST>
+    void travPost_I(BinNodePos x, VST &visit);
+
+    template<class VST>
+    void travLevel(VST &visit);
 
     static bool IsRoot(BinNodePos&x) {
         return x->parent == nullptr;
@@ -140,23 +158,9 @@ public:
         IsLChild(x->parent) ? (x->parent->parent->rc) : (x->parent->parent->lc);
     }
 
-    template<class VST>
-    void travIn_l1(BinNode<T> *x, VST &visit);
-
-    template<class VST>
-    void travIn_l2(BinNode<T> *x, VST &visit);
 
 
-    template<class VST>
-    void travIn_l3(BinNode<T> *x, VST &visit);
-
-
-    void gotoHLVFL(Stack<BinNode<T> *> &S);
-
-    template<class VST>
-    void travPost_I(BinNodePos x, VST &visit);
 };
-
 
 
 #endif //DATASTRUCTUREGIT_BINNODE_H

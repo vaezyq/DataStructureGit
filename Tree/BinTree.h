@@ -39,11 +39,13 @@ public:
 
     BinNodePos insertAsRc(BinNodePos pos, T const &e);   //e作为pos的右孩子插入
 
-    BinNodePos attachAsLc(BinTree<T> *&t, BinNodePos x); //t作为x的左子树插入
+    BinNodePos attachAsLc(BinTree<T> *&S, BinNodePos x); //t作为x的左子树插入
 
-    BinNodePos attachAsRc(BinNodePos x, BinTree<T> *&t); //t作为x的右子树插入
+    BinNodePos attachAsRc(BinNodePos x, BinTree<T> *&S); //t作为x的右子树插入
 
     int remove(BinNodePos pos); //子树删除
+
+    int removeAt(BinNodePos pos); //子树删除
 
     BinTree<T> *secede(BinNodePos pos);  //将子树pos摘除，并返回这颗独立的树
 
@@ -83,10 +85,7 @@ public:
         return _root & t._root && (_root == t._root);
     }
 
-    int removeAt(BinNodePos pos);
 };
-
-
 
 
 #endif //DATASTRUCTUREGIT_BINTREE_H
