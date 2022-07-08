@@ -26,12 +26,4 @@ int *maxAndNextMax(int *A, int lo, int hi) {
     return resA;
 }
 
-int main() {
-    auto A = new int[]{1, 2, 3, 4, 5, 6, 7, 8};
-    auto res = maxAndNextMax(A, 0, 8);
-    std::cout << res[0] << " " << res[1];
 
-
-
-
-}

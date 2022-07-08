@@ -26,9 +26,21 @@ protected:
 
     void shrink();  //装填因子过小时压缩
 
-    bool bubble(int lo, int hi);   //扫描交换
+    bool bubble_v1(int lo, int hi);   //扫描交换
 
-    void bubbleSort(int lo, int hi);  //冒泡排序算法
+    int bubble_v2(int lo, int hi);   //扫描交换
+
+    int bubble_v3(int lo, int hi);
+
+    void bubble_v4(int &lo, int &hi);
+
+    void bubbleSort_v1(int lo, int hi);  //冒泡排序算法
+
+    void bubbleSort_v2(int lo, int hi);
+
+    void bubbleSort_v3(int lo, int hi);
+
+    void bubbleSort_v4(int lo, int hi);
 
     int max(int lo, int hi);//选取最大元素
 
@@ -122,9 +134,11 @@ public:
     static int fibSearch(T *S, T const &e, int lo, int hi);
 
     static int interpolationSearch(T *S, const T &e, int lo, int hi);
+
 };
 
-
+template
+class Vector<int>;
 
 
 #endif //DATASTRUCTUREGIT_VECTOR_H

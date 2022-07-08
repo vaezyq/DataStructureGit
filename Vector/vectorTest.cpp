@@ -40,7 +40,7 @@ int main() {
     cout << "属性测试" << endl;
     cout << "The size of v1 is " << v1.size() << endl;
     cout << "Whether v1 is empty: " << boolalpha << v1.isEmpty() << endl;
-    cout << static_cast<bool>(v1.disordered() == 0) << boolalpha << endl;
+    cout << "v1是否有序" << static_cast<bool>(v1.disordered() == 0) << boolalpha << endl;
 
     cout << "无序向量查找测试" << endl;
 
@@ -99,17 +99,17 @@ int main() {
     Print(v6);
     v6.insert(2);
     v6.insert(3);
+    Print(v6);
 
-    //无序去重原来的方法是错误的，注意总结
     v6.duplicate();
     Print(v6);
 
     cout << "有序向量去重：" << endl;
+    v6.insert(2);
+    v6.insert(3);
     v6.sort();
     v6.uniquify();
     Print(v6);
-
-
 }
 
 
