@@ -19,9 +19,8 @@ public:
     explicit ListNode(T e, ListNodePoi p = nullptr, ListNodePoi s = nullptr) : data(e), pred(p), succ(s) {
     }   //默认构造器
 
+    //在此节点前插入节点
     ListNodePoi insertAsPred(T const &e);
-
-      //在此节点前插入节点
 
     ListNodePoi insertAsSucc(T const &e);
     //在此节点后插入节点

@@ -20,7 +20,7 @@ void Print(List<int> &l) {
 
 template<typename T>
 struct Increase {
-    virtual void operator()(T &e)const {
+    virtual void operator()(T &e) const {
         e++;
     }
 };
@@ -43,63 +43,80 @@ struct Half {
 
 
 int main() {
+//    List<int> l1;
+//
+//    for (auto i = 0; i < 10; ++i) {
+//        l1.insertAsLast(i);
+//    }
+//    Print(l1);
+//
+//    List<int> l2(l1);
+//    Print(l2);
+//
+//    List<int> l3(l2, 2, 6);
+//    Print(l3);
+//
+//    List<int> l4(l1.first(), 10);
+//
+//    Print(l4);
+//
+//
+//    //    访问接口
+//    cout << "size of l1: " << l1.size() << endl;
+//    // 空
+//    cout << "ls is empty? " << boolalpha << l1.isEmpty() << endl;
+//
+//    cout << "重载[]运算符： " << l1[3] << endl;
+//
+//
+//    cout << "判断是否合法 " << boolalpha << l1.valid(l1.first()) << endl;
+//    cout << "判断是否合法 " << boolalpha << l1.valid(l2.first()) << endl;
+//
+//    cout << "判断是否有序: " << boolalpha << (l1.disordered() == 0) << endl;
+//
+//
+//    l1.reverse();
+//    cout << "翻转链表: ";
+//    Print(l1);
+//    cout << "判断是否有序: " << boolalpha << (l1.disordered() == 0) << endl;
+//
+//    cout << "无序列表查找：" << l1.find(10)->data << endl;
+//
+//
+//    cout << "最大的元素: " << l1.selectMax()->data << endl;
+//
+//
+//    cout << "可写访问接口测试:" << endl;
+//    cout << "首节点插入： " << endl;
+//    l1.insertAsFirst(10);
+//    Print(l1);
+//    cout << "尾节点插入： " << endl;
+//    l1.insertAsLast(11);
+//    Print(l1);
+//
+//
+//    increase(l1);
+//    Print(l1);
+
+
     List<int> l1;
 
-    for (auto i = 0; i < 10; ++i) {
-        l1.insertAsLast(i);
+    for (auto i = 0; i < 5; ++i) {
+        l1.insertAsLast(2 * i + 1);
+    }
+    for (auto i = 0; i < 5; ++i) {
+        l1.insertAsLast(2 * i);
     }
     Print(l1);
+    auto q = l1.first();
+    for (auto i = 0; i < 5; ++i) {
+        q = q->succ;
+    }
 
-    List<int> l2(l1);
-    Print(l2);
-
-    List<int> l3(l2, 2, 6);
-    Print(l3);
-
-    List<int> l4(l1.first(), 10);
-
-    Print(l4);
-
-
-    //    访问接口
-    cout << "size of l1: " << l1.size() << endl;
-    // 空
-    cout << "ls is empty? " << boolalpha << l1.isEmpty() << endl;
-
-    cout << "重载[]运算符： " << l1[3] << endl;
-
-
-    cout << "判断是否合法 " << boolalpha << l1.valid(l1.first()) << endl;
-    cout << "判断是否合法 " << boolalpha << l1.valid(l2.first()) << endl;
-
-    cout << "判断是否有序: " << boolalpha << (l1.disordered() == 0) << endl;
-
-
-//    l1.reverse();
-    cout << "翻转链表: ";
-    Print(l1);
-    cout << "判断是否有序: " << boolalpha << (l1.disordered() == 0) << endl;
-
-    cout << "无序列表查找：" << boolalpha << (l1.find(10) == l1.first()->pred) << endl;
-
-    cout << "最大的元素: " << l1.selectMax()->data << endl;
-
-
-    cout << "可写访问接口测试:" << endl;
-    cout << "首节点插入： " << endl;
-    l1.insertAsFirst(10);
-    Print(l1);
-    cout << "尾节点插入： " << endl;
-    l1.insertAsLast(11);
-    Print(l1);
-
+    l1.merge(l1.first(), 5, l1, q, 5);
     l1.sort();
+
     Print(l1);
-
-
-    increase(l1);
-    Print(l1);
-
 }
 
 

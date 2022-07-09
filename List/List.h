@@ -28,7 +28,8 @@ protected:
 
     void mergeSort(ListNodePoi p, int n);
 
-    void merge(ListNodePoi p, int n, List<T> &L, ListNodePoi q, int m);
+public:
+    ListNode<T> *merge(ListNodePoi p, int n, List<T> &L, ListNodePoi q, int m);
 
 public:
 
@@ -50,7 +51,7 @@ public:
 
     bool isEmpty() const; //判空
 
-    T &operator[](int r) const; //重载，支持循秩访问
+    T &operator[](int r) const; //重载，支持循秩访问,模仿向量的循秩访问，但是效率低下，0 <= r < size
 
     ListNodePoi first() const; //首节点位置
 
@@ -105,7 +106,7 @@ public:
     //指针遍历
 
     template<typename VST>
-    void traverse(VST const&visit) {
+    void traverse(VST const &visit) {
         auto p = header;
         for (auto i = 0; i < _size; ++i) {
             visit((p = p->succ)->data);

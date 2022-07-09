@@ -4,7 +4,6 @@
 
 #include "ListNode.h"
 
-
 template<typename T>
 ListNode<T> *ListNode<T>::insertAsPred(const T &e) {
     auto x = new ListNode<T>(e, pred, this);
@@ -20,7 +19,6 @@ ListNode<T> *ListNode<T>::insertAsSucc(const T &e) {
     succ = x;
     return x;
 }
-
 
 template
 class ListNode<int>;
