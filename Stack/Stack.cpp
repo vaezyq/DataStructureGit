@@ -4,20 +4,19 @@
 
 #include "Stack.h"
 
+
 template<typename T>
 void Stack<T>::push(const T &e) {
-    insert(this->size(), e);
+    this->insert(this->size(), e);
 
 }
 
 template<typename T>
 T Stack<T>::pop() {
-    return remove(this->size() - 1);
+    return this-> remove(this->size() - 1);
 }
 
 template<typename T>
 T &Stack<T>::top() {
     return (*this)[this->size() - 1];
-
 }
-

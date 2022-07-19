@@ -94,7 +94,7 @@ public:
 
     Vector<T> operator=(Vector<T> const &v);     //重载赋值运算符，用于克隆向量
 
-    int remove(int r); //删除秩为r的元素
+    T remove(int r); //删除秩为r的元素
 
     int remove(int lo, int hi);  //删除秩在[lo,hi)之间的元素
 
@@ -137,8 +137,11 @@ public:
 
 };
 
+//template
+//class Vector<int>;
+
 template
-class Vector<int>;
+class Vector<char>;
 
 
 #endif //DATASTRUCTUREGIT_VECTOR_H

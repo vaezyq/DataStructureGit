@@ -6,21 +6,21 @@
 #define DATASTRUCTUREGIT_BITMAP_H
 
 
-
 class Bitmap {
 private:
     int N;
     unsigned char *M;
 
 protected:
-    void init(int n) ;
+    void init(int n);
 
 
 public:
     Bitmap(int n = 8) {
         init(n);
     }
-    Bitmap(char *file,int n=8);
+
+    Bitmap(char *file, int n = 8);
 
     ~Bitmap() {
         delete[] M;

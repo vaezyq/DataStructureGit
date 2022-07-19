@@ -22,17 +22,25 @@ BinNode<T> *BinTree<T>::insertAsRc(BinNode<T> *pos, const T &e) {
 }
 
 
-#define stature(p) (p)? p->heigth :-1    //如果是空树，即p=nullpter,默认高度为-1
+//#define stature(p) (p)? p->height :-1    //如果是空树，即p=nullpter,默认高度为-1
+
+template<typename T>
+int stature(BinNodePos p) {
+    return p != nullptr ? p->height : -1;
+}
 
 template<typename T>
 int BinTree<T>::updateHeight(BinNode<T> *x) {
-    return x = 1 + std::max(stature(x->lc), stature(x->rc));
+    return 1 + std::max(stature(x->lc), stature(x->rc));
 }
 
 template<typename T>
 void BinTree<T>::updateHeightAbove(BinNode<T> *x) {
     while (x) {
-        updateHeight(x);
+        auto oldHeight = x->height;
+        if (oldHeight == updateHeight(x)) {
+            break;
+        }
         x = x->parent;
     }
 }
@@ -54,7 +62,6 @@ BinNode<T> *BinTree<T>::attachAsLc(BinTree<T> *&S, BinNode<T> *x) {
     S->_root = nullptr;
     S->_size = 0;
     delete S;    //这一步的作用是什么
-
     return x;
 }
 
@@ -70,8 +77,6 @@ BinNode<T> *BinTree<T>::attachAsRc(BinNode<T> *x, BinTree<T> *&S) {
     S->_size = 0;
     delete S;    //这一步的作用是什么
     return x;
-
-
 }
 
 
@@ -110,16 +115,13 @@ BinTree<T> *BinTree<T>::secede(BinNode<T> *pos) {
 }
 
 
+template
+class BinTree<char>;
 
 
 
-
-
-
-
-
-
-
+template
+class Queue<BinTree<char> *>;
 
 
 

@@ -57,9 +57,17 @@ void List<T>::selectionSort(ListNode<T> *p, int n) {
     }
 }
 
+// 注意这里p要使用引用(理由？)
 template<typename T>
-void List<T>::mergeSort(ListNode<T> *p, int n) {
+void List<T>::mergeSort(ListNode<T> *&p, int n) {
+
     if (n < 2) return;
+
+
+    std::cout << std::endl;
+//    std::cout<<n;
+//    std::cout << std::endl;
+
     auto mi = n >> 1;
     auto q{p};
     for (auto i = 0; i < mi; ++i) {
@@ -68,6 +76,8 @@ void List<T>::mergeSort(ListNode<T> *p, int n) {
     mergeSort(p, mi);
     mergeSort(q, n - mi);
     p = merge(p, mi, *this, q, n - mi);
+
+
 }
 
 
@@ -248,7 +258,7 @@ void List<T>::merge(List<T> &L) {
 
 template<typename T>
 void List<T>::sort(ListNode<T> *p, int n) {
-    switch (2) {
+    switch (3) {
         case 0:
             insertionSort(p, n);
             break;
@@ -286,7 +296,7 @@ int List<T>::uniquify() {
 
 template<typename T>
 void List<T>::reverse() {
-    for (auto p = first(), q = last(); (p != q) && (p->succ != q); p = p->succ, q = q->pred)
+    for (auto p = first(), q = last(); (p != q) && (q->succ != p); p = p->succ, q = q->pred)
         std::swap(p->data, q->data);
 }
 

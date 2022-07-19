@@ -240,7 +240,7 @@ void BinNode<T>::travLevel(VST &visit) {
 
 
 
-
+template class BinNode<char>;
 
 
 

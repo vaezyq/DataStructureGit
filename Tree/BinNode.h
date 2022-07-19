@@ -154,14 +154,12 @@ public:
 //与BinNode有关的节点与指针
 
     static BinNodePos sibling(BinNodePos&p) {
-        return (IsLChild(p) ? (p->parent->rc) : (p->parent->rc));
+        return IsLChild(p) ? (p->parent->rc) : (p->parent->rc);
     }
 
     static BinNodePos uncle(BinNodePos&x) {
         IsLChild(x->parent) ? (x->parent->parent->rc) : (x->parent->parent->lc);
     }
-
-
 
 };
 

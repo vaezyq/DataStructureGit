@@ -6,6 +6,7 @@
 #include <cstring>
 #include <cstdio>
 #include <set>
+#include <iostream>
 
 using namespace std;
 
@@ -36,7 +37,7 @@ bool Bitmap::test(int k) {
     return M[k >> 3] & (0x80 >> (k & 0x07));
 }
 
-void Bitmap::dump(char *file) {
+void Bitmap::dump(char  *file) {
     FILE *fp = fopen(file, "w");
     fwrite(M, sizeof(unsigned char), N, fp);
     fclose(fp);

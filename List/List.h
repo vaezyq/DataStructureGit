@@ -26,7 +26,7 @@ protected:
 
     void selectionSort(ListNodePoi p, int n);
 
-    void mergeSort(ListNodePoi p, int n);
+    void mergeSort(ListNodePoi &p, int n);
 
 public:
     ListNode<T> *merge(ListNodePoi p, int n, List<T> &L, ListNodePoi q, int m);

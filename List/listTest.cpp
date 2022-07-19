@@ -101,19 +101,24 @@ int main() {
 
     List<int> l1;
 
-    for (auto i = 0; i < 5; ++i) {
-        l1.insertAsLast(2 * i + 1);
+    for (auto i = 10; i > 0; --i) {
+        l1.insertAsFirst(2 * i + 1);
     }
-    for (auto i = 0; i < 5; ++i) {
-        l1.insertAsLast(2 * i);
-    }
+//    Print(l1);
+//    l1[3] = 18;
+//    l1.reverse();
+//    for (auto i = 5; i > 0; --i) {
+//        l1.insertAsFirst(2 * i);
+//    }
     Print(l1);
-    auto q = l1.first();
-    for (auto i = 0; i < 5; ++i) {
-        q = q->succ;
-    }
-
-    l1.merge(l1.first(), 5, l1, q, 5);
+    l1.reverse();
+    Print(l1);
+//    auto q = l1.first();
+//    for (auto i = 0; i < 5; ++i) {
+//        q = q->succ;
+//    }
+//
+//    l1.merge(l1.first(), 5, l1, q, 5);
     l1.sort();
 
     Print(l1);

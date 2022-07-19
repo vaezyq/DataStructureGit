@@ -77,12 +77,14 @@ public:
         }
     }
 
-    bool operator<(BinTree<T> const &t) {
-        return _root & t._root && (_root < t._root);
+    bool operator<(BinTree<T> &t) {
+        return _root && t._root && (_root->data < t._root->data);
+//        return (_root== nullptr)&&(t._root== nullptr)&&(_root->data<t._root->data);
     }
 
-    bool operator==(BinTree<T> const &t) {
-        return _root & t._root && (_root == t._root);
+    bool operator==(BinTree<T> &t) {
+        return _root && t._root && (_root->data == t._root->data);
+//        return _root;
     }
 
 };

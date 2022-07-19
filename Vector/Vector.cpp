@@ -285,8 +285,10 @@ T &Vector<T>::operator[](int i) {
 }
 
 template<typename T>
-int Vector<T>::remove(int r) {
-    return remove(r, r + 1);
+T Vector<T>::remove(int r) {
+    auto data{_elem[r]};
+    remove(r, r + 1);
+    return data;
 }
 
 template<typename T>
