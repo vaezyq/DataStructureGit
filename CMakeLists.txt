@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.0)
+cmake_minimum_required(VERSION 2.8)
 project(DataStructureGit)
 
 set(CMAKE_CXX_STANDARD 17)
@@ -6,7 +6,7 @@ set(CMAKE_CXX_STANDARD 17)
 # vector测试
 add_executable(VectorTest Vector/Vector.cpp Vector/Fib.cpp Vector/vectorTest.cpp)
 # bitmap测试
-add_executable(bitMapTest BitMap/bitMapTest.cpp BitMap/Bitmap.cpp)
+add_executable(bitMapTest BitMap/bitMapTest.cpp BitMap/Bitmap.cpp BinarySearchTree/BST.cpp BinarySearchTree/BST.h BinarySearchTree/AVL.cpp BinarySearchTree/AVL.h String/stringMatch.cpp String/string_pm_test.cpp)
 # list测试
 add_executable(listTest List/listTest.cpp List/List.cpp List/ListNode.cpp)
 # stack测试
@@ -17,3 +17,4 @@ add_executable(Hailstone Introduction/Hailstone.cpp)
 add_executable(maxAndNextBig Vector/maxAndNextBig.cpp)
 add_executable(treeTest Tree/treeTest.cpp Tree/BinNode.cpp Tree/BinTree.cpp)
 
+add_executable(String String/string_pm_test.cpp)
