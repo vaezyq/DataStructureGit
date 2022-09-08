@@ -3,6 +3,7 @@
 #include "Fib.h"
 #include <iostream>
 
+using namespace std;
 
 template<typename T>
 void Vector<T>::copyFrom(const T *A, int lo, int hi) {
@@ -182,12 +183,60 @@ void Vector<T>::mergeSort(int lo, int hi) {
 }
 
 template<typename T>
-int Vector<T>::partition(int lo, int hi) {   //后续补充
-    return 0;
+int Vector<T>::partition(int lo, int hi) {    //快速划分算法，构造区间[lo,hi)的轴点，并返回秩
+    swap(_elem[lo], _elem[lo + rand() % (hi - lo)]);       //任取一个元素与首元素交换位置
+    auto pivot = _elem[lo];     //取首元素作为轴点,且经过上一步的交换，等价于随机选取
+    while (lo < hi) {    //从向量的两端交替的向中间扫描
+        while ((lo < hi) && (pivot <= _elem[hi])) {      //不断的向左拓展右子向量
+            hi--;
+        }
+        _elem[lo] = _elem[hi]; //将小于pivot的元素归于左子向量
+        while ((lo < hi) && (_elem[lo] <= pivot)) {
+            lo++;  //不断的向右拓展左子向量
+        }
+        _elem[hi] = _elem[lo];  //将大于pivot的元素归于右子向量
+    }
+    _elem[lo] = pivot;   //将备份的轴点归位到其排序后的最终位置
+    return lo;  //返回轴点位置
 }
 
+
 template<typename T>
-void Vector<T>::quickSort(int lo, int hi) {  //后续补充
+int Vector<T>::partition_v2(int lo, int hi) {  //快速划分算法，构造区间[lo,hi)的轴点，并返回秩
+    //此算法可以优化所有(几乎所有)元素均重复的退化情况
+    swap(_elem[lo], _elem[lo + rand() % (hi - lo)]);       //任选一个元素与首元素交换，作为轴点
+    auto pivot = _elem[lo];         //以首元素为轴点，经过上一步的交换，等价于随机选取
+    while (lo < hi) {      //从向量的两端交替的向中间扫描
+
+        while (lo < hi) {
+            if (pivot < _elem[hi]) {    //在大于pivot的前提下，不断左移
+                hi--;
+            } else {
+                _elem[lo++] = _elem[hi];  //将不符合条件的归入左端子向量
+                break;
+            }
+        }
+
+        while (lo < hi) {
+            if (_elem[lo] < pivot) {    //在小于pivot的前提下，不断右移
+                lo++;     //向右拓展左子向量
+            } else {
+                _elem[hi--] = _elem[lo];  //将不符合条件的归入右端子向量
+                break;
+            }
+        }
+    }
+    _elem[lo] = pivot;  //将备份的轴点记录与前、后子向量之间
+    return lo;  //返回轴点的秩
+}
+
+
+template<typename T>
+void Vector<T>::quickSort(int lo, int hi) {
+    if (hi - lo < 1) return;    //递归基：单元素区间必然有序
+    auto mi = partition(lo, hi);  //在区间[lo,hi-1)内构造轴点
+    quickSort(lo, mi);  //对前缀进行递归排序
+    quickSort(mi, hi);  //对后缀进行递归排序
 }
 
 template<typename T>

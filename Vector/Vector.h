@@ -54,6 +54,8 @@ protected:
 
     int partition(int lo, int hi);  //轴点构造算法
 
+    int partition_v2(int lo, int hi);  //轴点构造算法
+
     void quickSort(int lo, int hi); //快速排序算法
 
     void heapSort(int lo, int hi); //堆排序算法

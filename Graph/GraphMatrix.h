@@ -21,7 +21,6 @@ struct Vertex {   //顶点对象
     int priority; //遍历树中的优先级数
     Vertex(Tv const d = (Tv) 0) : data(d), inDegree(0), outDegree(0), status(UNDISCOVERED), dTime(-1),
                                   fTime(-1), parent(-1), priority(INT_MAX) {}   //构造一个新节点
-
 };
 
 
@@ -29,7 +28,7 @@ template<typename Te>
 struct Edge {     //边对象
     Te data;       //数据
     int weight;   //权重
-    EType type;   //类型
+    EType type;   //状态
     Edge(Te const &d, int w) : data(d), weight(w), type(UNDETERMINED) {} //构造
 };
 
@@ -94,16 +93,60 @@ public:
         return V.insert(Vertex<Tv>(vertex));  //顶点向量增加一个顶点
     }
 
-    virtual Tv remove(int v) {
-        for (auto u = 0; u < this->n; ++u) {
+    virtual Tv remove(int v) {       //删除顶点及其关联边，返回该顶点信息
+        for (auto u = 0; u < this->n; ++u) {    //删除所有出边
             if (this->exists(v, u)) {
                 delete E[v][u];
-                V[u].inDegree--;
+                V[u].inDegree--; //逐条删除
                 this->e--;
             }
         }
         E.remove(v);
         this->n--;    //删除第v行
+        Tv vBak = vertex(v);
+        V.remove(v); //删除顶点v
+        for (auto u = 0; u < this->n; ++u) {  //所有入边
+            if (auto x = E[u].remove(v)) {
+                delete x;
+                V[u].outDegree--;    //逐条删除
+                this->e--;
+            }
+        }
+        return vBak;       //返回被删除顶点信息
+    }
+
+
+//边的基本操作
+    virtual bool exists(int v, int u) {     //判断边(v,u)是否存在
+        return (v < this->n) && (u < this->n) && E[v][u] != nullptr;
+    }
+
+    virtual EType &type(int v, int u) { return E[v][u]->type; } //边(v, u)的类型
+
+    virtual Te &edge(int v, int u) { return E[v][u]->data; } //边(v, u)的数据
+
+    virtual int &weight(int v, int u) { return E[v][u]->weight; } //边(v, u)的权重
+
+//边的动态操作
+    virtual void insert(Te const &edge, int w, int v, int u) { //插入权重为w的边(v, u)
+        if (exists(v, u)) return; //确保该边尚不存在
+        E[v][u] = new Edge<Te>(edge, w); //创建新边
+        this->e++;
+        V[v].outDegree++;
+        V[u].inDegree++; //更新边计数与关联顶点的度数
+    }
+
+    virtual Te remove(int v, int u) { //删除顶点v和u之间的联边（exists(v, u)）
+        Te eBak = edge(v, u);
+        delete E[v][u];
+        E[v][u] = nullptr; //备份后删除边记录
+        this->e--;
+        V[v].outDegree--;
+        V[u].inDegree--; //更新边计数与关联顶点的度数
+        return eBak; //返回被删除边的信息
+
+
+
 
     }
 
