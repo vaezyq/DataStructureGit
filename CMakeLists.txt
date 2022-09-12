@@ -6,7 +6,7 @@ set(CMAKE_CXX_STANDARD 17)
 # vector测试
 add_executable(VectorTest Vector/Vector.cpp Vector/Fib.cpp Vector/vectorTest.cpp)
 # bitmap测试
-add_executable(bitMapTest BitMap/bitMapTest.cpp BitMap/Bitmap.cpp BinarySearchTree/BST.cpp BinarySearchTree/BST.h BinarySearchTree/AVL.cpp BinarySearchTree/AVL.h String/stringMatch.cpp String/string_pm_test.cpp)
+add_executable(bitMapTest BitMap/bitMapTest.cpp BitMap/Bitmap.cpp BinarySearchTree/BST.cpp BinarySearchTree/BST.h BinarySearchTree/AVL.cpp BinarySearchTree/AVL.h String/stringMatch.cpp String/string_pm_test.cpp Selection_and_Sort/Sort.cpp Selection_and_Sort/Sort.h)
 # list测试
 add_executable(listTest List/listTest.cpp List/List.cpp List/ListNode.cpp)
 # stack测试

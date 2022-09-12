@@ -178,6 +178,52 @@ HashCode prepareDm(size_t m) {   //预处理：计算R的m-1次方，并对结�
 }
 
 
+int *buildBC(const char *P);       //构造bc表
+
+int *buildGS(const char *P);      //构造gs表
+
+int match_BM(char *P, char *T) {       //BM算法
+    int *bc = buildBC(P);       //构造bc表
+    int *gs = buildGS(P);       //构造gs表
+    size_t i = 0;  //模式串相对于文本串的起始位置
+    size_t m = strlen(P); //模式串长度
+    size_t n = strlen(T);  //文本串长度
+    while (i + m <= n) {
+        auto j = m - 1;  //从模式串的末尾开始
+        while (P[j] == T[i + j]) {
+            if (--j < 0) break;
+        }
+        if (j < 0) {
+            break;     //已近完全匹配
+        } else {
+            i += (gs[j] > (j - bc[T[i + j]]) ? gs[j] : (j - bc[T[i + j]]));
+        }
+    }
+    delete[]gs;    //销毁gs表
+    delete[]bc;   //销毁bc表
+    return i;
+}
+
+
+int *buildBC(char *P) {   //构造坏字符表
+    auto bc = new int[256];    //BC表，与字符表等长
+    for (size_t j = 0; j < 256; ++j) {
+        bc[j] = -1;     //初始化：首先假设所有字符均未在P中出现
+    }
+    for (size_t m = strlen(P), j = 0; j < m; ++j) {
+        bc[P[j]] = j;     //自左向右的扫描模式P
+    }
+    return bc;
+}
+
+
+
+
+
+
+
+
+
 
 
 

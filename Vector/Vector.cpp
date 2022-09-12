@@ -402,8 +402,6 @@ int Vector<T>::binSearch(T *S, const T &e, int lo, int hi) {
 
 template<typename T>
 int Vector<T>::fibSearch(T *S, const T &e, int lo, int hi) {
-
-
     while (true) {
         Fib fib(hi - lo);
         for (; fib.get() > (hi - lo); fib.prev());
