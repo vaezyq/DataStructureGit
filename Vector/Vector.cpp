@@ -462,6 +462,11 @@ int Vector<T>::interpolationSearch(T *S, const T &e, int lo, int hi) {
     }
 }
 
+template<typename T>
+bool Vector<T>::majority(Vector<T> A, T &maj) {
+    return false;
+}
+
 
 
 //template

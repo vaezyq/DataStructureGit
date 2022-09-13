@@ -137,6 +137,35 @@ public:
 
     static int interpolationSearch(T *S, const T &e, int lo, int hi);
 
+    static bool majority(Vector<T> A, T &maj);          //众数查找算法：T可比较可判等
+
+    static bool majEleCheck(Vector<T> A, T maj) {       //验证候选者maj是否为众数
+        int occurrence = 0;      //maj在A[]中出现的次数
+        for (auto i = 0; i < A.size(); ++i) {    //遍历A中的所有元素
+            if (A[i] == maj) occurrence++;
+        }
+        return 2 * occurrence > A.size();       //根据最终的计数值，判断是否的确当选
+    }
+
+    static T majEleCandidate(Vector<T> A) {  //选出具备必要条件癿众数候选者,其是否是真正的众数还需要判断
+        T maj;  //众数候选者
+        for (int c = 0, i = 0; i < A.size(); ++i) {
+            if (c == 0) {
+                maj = A[i];
+                c = 1;
+            } else {
+                A[i] == maj ? c++ : c--;
+            }
+        }
+        return maj;
+    }
+
+    //中位数算法，向量S1[lo1, lo1 + n1)和S2[lo2, lo2 + n2)分删有序，数据项可能重复
+    static T median(Vector<T> &S1, int lo, int n1, Vector<T> &S2, int lo2, int n2) {
+
+    }
+
+
 };
 
 //template
